@@ -1,0 +1,38 @@
+---
+abstract: 'a PerlIO layer that adds read & write timeout to a handle'
+author:
+  - "Damien \"dams\" Krotkine"
+build_requires:
+  Capture::Tiny: 0
+  Module::Build: 0.3601
+  Test::More: 0.88
+  Test::TCP: 0
+  blib: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+  Module::Build: 0.3601
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.120921'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: PerlIO-via-Timeout
+provides:
+  PerlIO::via::Timeout:
+    file: lib/PerlIO/via/Timeout.pm
+    version: 0.10
+  PerlIO::via::Timeout::Strategy:
+    file: lib/PerlIO/via/Timeout/Strategy.pm
+    version: 0.10
+  PerlIO::via::Timeout::Strategy::NoTimeout:
+    file: lib/PerlIO/via/Timeout/Strategy/NoTimeout.pm
+    version: 0.10
+  PerlIO::via::Timeout::Strategy::Select:
+    file: lib/PerlIO/via/Timeout/Strategy/Select.pm
+    version: 0.10
+requires:
+  PerlIO::via: 0
+resources:
+  repository: git://github.com/dams/perlio-via-timeout.git
+version: 0.10
