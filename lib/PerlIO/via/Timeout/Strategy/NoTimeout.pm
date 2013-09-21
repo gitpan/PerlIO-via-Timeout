@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::NoTimeout;
 {
-  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.10';
+  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.11';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that don't do any timeout
@@ -34,6 +34,7 @@ sub WRITE {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -42,7 +43,7 @@ PerlIO::via::Timeout::Strategy::NoTimeout - a L<PerlIO::via::Timeout> strategy t
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =DESCRIPTION
 
@@ -64,4 +65,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

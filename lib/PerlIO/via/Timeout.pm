@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout;
 {
-  $PerlIO::via::Timeout::VERSION = '0.10';
+  $PerlIO::via::Timeout::VERSION = '0.11';
 }
 
 # ABSTRACT: a PerlIO layer that adds read & write timeout to a handle
@@ -38,7 +38,7 @@ sub _get_fd {
 }
 
 sub PUSHED {
-    # parrams CLASS, MODE, FH
+    # params CLASS, MODE, FH
     my $fd = _get_fd($_[2]) or return -1;
     bless { }, $_[0];
 }
@@ -87,8 +87,8 @@ sub timeout_strategy {
 
 1;
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -97,7 +97,7 @@ PerlIO::via::Timeout - a PerlIO layer that adds read & write timeout to a handle
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 SYNOPSIS
 
@@ -142,6 +142,18 @@ some time.
 
 =back
 
+=head1 THANKS TO
+
+=over
+
+=item Vincent Pit
+
+=item Christian Hansen
+
+=item Leon Timmmermans
+
+=back
+
 =head1 AUTHOR
 
 Damien "dams" Krotkine
@@ -154,4 +166,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
