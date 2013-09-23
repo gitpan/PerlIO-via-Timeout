@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::Select;
 {
-  $PerlIO::via::Timeout::Strategy::Select::VERSION = '0.12';
+  $PerlIO::via::Timeout::Strategy::Select::VERSION = '0.13';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that uses C<select>
@@ -32,7 +32,7 @@ sub READ {
 
     my $offset = 0;
     while () {
-        if ( ! can_read_write($fh, $fd, $read_timeout, 0)) {
+        if ( $len && ! can_read_write($fh, $fd, $read_timeout, 0)) {
             $! = ETIMEDOUT unless $!;
             return 0;
         }
@@ -58,7 +58,7 @@ sub WRITE {
     my $len = length $_[1];
     my $offset = 0;
     while () {
-        unless (can_read_write($fh, $fd, $write_timeout, 1)) {
+        if ( $len && ! can_read_write($fh, $fd, $write_timeout, 1)) {
             $! = ETIMEDOUT unless $!;
             return -1;
         }
@@ -117,7 +117,7 @@ PerlIO::via::Timeout::Strategy::Select - a L<PerlIO::via::Timeout> strategy that
 
 =head1 VERSION
 
-version 0.12
+version 0.13
 
 =head1 SYNOPSIS
 
