@@ -31,7 +31,7 @@ my %WriteMakefileArgs = (
     "Test::TCP" => 0,
     "blib" => 0
   },
-  "VERSION" => "0.11",
+  "VERSION" => "0.12",
   "test" => {
     "TESTS" => "t/*.t"
   }

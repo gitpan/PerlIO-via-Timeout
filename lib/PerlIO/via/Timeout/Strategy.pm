@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy;
 {
-  $PerlIO::via::Timeout::Strategy::VERSION = '0.11';
+  $PerlIO::via::Timeout::Strategy::VERSION = '0.12';
 } # hide from CPAN
 
 # ABSTRACT: base class for a L<PerlIO::via::Timeout> strategies
@@ -48,7 +48,6 @@ sub WRITE { croak "WRITE is not implemented by this strategy" }
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -57,7 +56,7 @@ PerlIO::via::Timeout::Strategy - base class for a L<PerlIO::via::Timeout> strate
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 AUTHOR
 
@@ -71,3 +70,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
