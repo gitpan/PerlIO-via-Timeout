@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::NoTimeout;
 {
-  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.14';
+  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.15';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that don't do any timeout
@@ -42,7 +42,7 @@ PerlIO::via::Timeout::Strategy::NoTimeout - a L<PerlIO::via::Timeout> strategy t
 
 =head1 VERSION
 
-version 0.14
+version 0.15
 
 =DESCRIPTION
 

@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::Alarm;
 {
-  $PerlIO::via::Timeout::Strategy::Alarm::VERSION = '0.14';
+  $PerlIO::via::Timeout::Strategy::Alarm::VERSION = '0.15';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that uses L<Time::Out> (based on alarm)
@@ -22,9 +22,15 @@ use Errno qw(ETIMEDOUT);
 use parent qw(PerlIO::via::Timeout::Strategy::NoTimeout);
 
 use Time::Out qw(timeout);
-use Time::Hires;
+use Time::HiRes;
 
 
+
+sub new {
+    $^O eq 'MSWin32'
+      and croak "This Strategy is not supported on 'MSWin32'";
+    return shift->SUPER::new(@_);
+}
 
 sub READ {
     my ($self, undef, $len, $fh, $fd) = @_;
@@ -79,7 +85,7 @@ PerlIO::via::Timeout::Strategy::Alarm - a L<PerlIO::via::Timeout> strategy that 
 
 =head1 VERSION
 
-version 0.14
+version 0.15
 
 =head1 SYNOPSIS
 

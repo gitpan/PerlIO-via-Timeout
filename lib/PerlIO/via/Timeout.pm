@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout;
 {
-  $PerlIO::via::Timeout::VERSION = '0.14';
+  $PerlIO::via::Timeout::VERSION = '0.15';
 }
 
 # ABSTRACT: a PerlIO layer that adds read & write timeout to a handle
@@ -106,7 +106,7 @@ PerlIO::via::Timeout - a PerlIO layer that adds read & write timeout to a handle
 
 =head1 VERSION
 
-version 0.14
+version 0.15
 
 =head1 SYNOPSIS
 
