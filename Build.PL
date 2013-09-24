@@ -18,13 +18,16 @@ my %module_build_args = (
     "Damien \"dams\" Krotkine"
   ],
   "dist_name" => "PerlIO-via-Timeout",
-  "dist_version" => "0.15",
+  "dist_version" => "0.16",
   "license" => "perl",
   "module_name" => "PerlIO::via::Timeout",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
-    "PerlIO::via" => 0
+    "Exporter" => "5.57",
+    "PerlIO::via" => 0,
+    "Scalar::Util" => 0,
+    "Time::Out" => 0
   },
   "script_files" => [],
   "test_requires" => {

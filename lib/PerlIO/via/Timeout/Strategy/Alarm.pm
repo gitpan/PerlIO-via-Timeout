@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::Alarm;
 {
-  $PerlIO::via::Timeout::Strategy::Alarm::VERSION = '0.15';
+  $PerlIO::via::Timeout::Strategy::Alarm::VERSION = '0.16';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that uses L<Time::Out> (based on alarm)
@@ -22,7 +22,6 @@ use Errno qw(ETIMEDOUT);
 use parent qw(PerlIO::via::Timeout::Strategy::NoTimeout);
 
 use Time::Out qw(timeout);
-use Time::HiRes;
 
 
 
@@ -85,10 +84,11 @@ PerlIO::via::Timeout::Strategy::Alarm - a L<PerlIO::via::Timeout> strategy that 
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 SYNOPSIS
 
+  use Time::HiRes;
   use PerlIO::via::Timeout qw(timeout_strategy);
   binmode($fh, ':via(Timeout)');
   timeout_strategy($fh, 'Alarm', read_timeout => 0.5);
@@ -121,6 +121,10 @@ The write timeout in second. Can be a float
 Boolean. Defaults to 1
 
 =back
+
+=head1 UNDER THE SECOND TIMEOUTS
+
+Warning, if you need timeout at a precision finer than the second, you need to use L<Time::HiRes>.
 
 =head1 COMPATIBILITY
 
