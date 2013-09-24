@@ -12,6 +12,7 @@ use Capture::Tiny qw{ capture };
 my @module_files = qw(
 PerlIO/via/Timeout.pm
 PerlIO/via/Timeout/Strategy.pm
+PerlIO/via/Timeout/Strategy/Alarm.pm
 PerlIO/via/Timeout/Strategy/NoTimeout.pm
 PerlIO/via/Timeout/Strategy/Select.pm
 );
