@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::NoTimeout;
 {
-  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.17';
+  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.18';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that don't do any timeout
@@ -23,12 +23,23 @@ our @ISA = qw(PerlIO::via::Timeout::Strategy);
 
 sub READ {
     my ($self, undef, $len, $fh, $fd) = @_;
-    return sysread($fh, $_[1], $len);
+    my $rv = sysread($fh, $_[1], $len);
+    if (! defined $rv) {
+        # There is a bug in PerlIO::via (possibly in PerlIO ?). We would like
+        # to return -1 to signify error, but doing so doesn't work (it usually
+        # segfault), it looks like the implementation is not complete. So we
+        # return 0.
+        $rv = 0;
+    }
+    return $rv;
 }
 
 sub WRITE {
     my ($self, undef, $fh, $fd) = @_;
-    return syswrite($fh, $_[1]);
+    my $rv = syswrite($fh, $_[1]);
+    defined $rv
+      or return -1;
+    return $rv;
 }
 
 1;
@@ -42,7 +53,7 @@ PerlIO::via::Timeout::Strategy::NoTimeout - a L<PerlIO::via::Timeout> strategy t
 
 =head1 VERSION
 
-version 0.17
+version 0.18
 
 =DESCRIPTION
 

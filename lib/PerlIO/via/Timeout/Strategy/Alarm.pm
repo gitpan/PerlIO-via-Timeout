@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::Alarm;
 {
-  $PerlIO::via::Timeout::Strategy::Alarm::VERSION = '0.17';
+  $PerlIO::via::Timeout::Strategy::Alarm::VERSION = '0.18';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that uses L<Time::Out> (based on alarm)
@@ -84,7 +84,7 @@ PerlIO::via::Timeout::Strategy::Alarm - a L<PerlIO::via::Timeout> strategy that 
 
 =head1 VERSION
 
-version 0.17
+version 0.18
 
 =head1 SYNOPSIS
 
