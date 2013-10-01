@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::Select;
 {
-  $PerlIO::via::Timeout::Strategy::Select::VERSION = '0.18';
+  $PerlIO::via::Timeout::Strategy::Select::VERSION = '0.19';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that uses C<select>
@@ -22,7 +22,6 @@ use Errno qw(EINTR ETIMEDOUT);
 use parent qw(PerlIO::via::Timeout::Strategy::NoTimeout);
 
 
-
 sub READ {
     my ($self, undef, $len, $fh, $fd) = @_;
 
@@ -34,7 +33,7 @@ sub READ {
 
     my $offset = 0;
     while () {
-        if ( $len && ! can_read_write($fh, $fd, $read_timeout, 0)) {
+        if ( $len && ! _can_read_write($fh, $fd, $read_timeout, 0)) {
             $! = ETIMEDOUT unless $!;
             return 0;
         }
@@ -63,7 +62,7 @@ sub WRITE {
     my $len = length $_[1];
     my $offset = 0;
     while () {
-        if ( $len && ! can_read_write($fh, $fd, $write_timeout, 1)) {
+        if ( $len && ! _can_read_write($fh, $fd, $write_timeout, 1)) {
             $! = ETIMEDOUT unless $!;
             return -1;
         }
@@ -80,7 +79,7 @@ sub WRITE {
     return $offset;
 }
 
-sub can_read_write {
+sub _can_read_write {
     my ($fh, $fd, $timeout, $type) = @_;
     # $type: 0 = read, 1 = write
     my $initial = time;
@@ -122,7 +121,7 @@ PerlIO::via::Timeout::Strategy::Select - a L<PerlIO::via::Timeout> strategy that
 
 =head1 VERSION
 
-version 0.18
+version 0.19
 
 =head1 SYNOPSIS
 
@@ -133,30 +132,17 @@ version 0.18
 =head1 DESCRIPTION
 
 This class implements a timeout strategy to be used by L<PerlIO::via::Timeout>.
+It inherits L<PerlIO::via::Timeout::Strategy>.
 
 Timeout is implemented using the C<select> core function.
 
+=head1 CONSTRUCTOR
+
+See L<PerlIO::via::Timeout::Strategy>.
+
 =head1 METHODS
 
-=head2 new
-
-Constructor of the strategy. Takes as arguments a list of key / values :
-
-=over
-
-=item read_timeout
-
-The read timeout in second. Can be a float
-
-=item write_timeout
-
-The write timeout in second. Can be a float
-
-=item timeout_enabled
-
-Boolean. Defaults to 1
-
-=back
+See L<PerlIO::via::Timeout::Strategy>.
 
 =head1 SEE ALSO
 

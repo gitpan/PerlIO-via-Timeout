@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::Alarm;
 {
-  $PerlIO::via::Timeout::Strategy::Alarm::VERSION = '0.18';
+  $PerlIO::via::Timeout::Strategy::Alarm::VERSION = '0.19';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that uses L<Time::Out> (based on alarm)
@@ -22,7 +22,6 @@ use Errno qw(ETIMEDOUT);
 use parent qw(PerlIO::via::Timeout::Strategy::NoTimeout);
 
 use Time::Out qw(timeout);
-
 
 
 sub new {
@@ -84,7 +83,7 @@ PerlIO::via::Timeout::Strategy::Alarm - a L<PerlIO::via::Timeout> strategy that 
 
 =head1 VERSION
 
-version 0.18
+version 0.19
 
 =head1 SYNOPSIS
 
@@ -96,35 +95,22 @@ version 0.18
 =head1 DESCRIPTION
 
 This class implements a timeout strategy to be used by L<PerlIO::via::Timeout>.
+It inherits L<PerlIO::via::Timeout::Strategy>.
 
 Timeout is implemented using the L<Time::Out>, which uses the C<alarm> core
 function, but with a safe harness.
 
-=head1 METHODS
-
-=head2 new
-
-Constructor of the strategy. Takes as arguments a list of key / values :
-
-=over
-
-=item read_timeout
-
-The read timeout in second. Can be a float
-
-=item write_timeout
-
-The write timeout in second. Can be a float
-
-=item timeout_enabled
-
-Boolean. Defaults to 1
-
-=back
-
 =head1 UNDER THE SECOND TIMEOUTS
 
 Warning, if you need timeout at a precision finer than the second, you need to use L<Time::HiRes>.
+
+=head1 CONSTRUCTOR
+
+See L<PerlIO::via::Timeout::Strategy>.
+
+=head1 METHODS
+
+See L<PerlIO::via::Timeout::Strategy>.
 
 =head1 COMPATIBILITY
 

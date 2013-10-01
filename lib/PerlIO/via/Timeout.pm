@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout;
 {
-  $PerlIO::via::Timeout::VERSION = '0.18';
+  $PerlIO::via::Timeout::VERSION = '0.19';
 }
 
 # ABSTRACT: a PerlIO layer that adds read & write timeout to a handle
@@ -106,7 +106,7 @@ PerlIO::via::Timeout - a PerlIO layer that adds read & write timeout to a handle
 
 =head1 VERSION
 
-version 0.18
+version 0.19
 
 =head1 SYNOPSIS
 
@@ -130,6 +130,8 @@ some time.
 
 =head2 timeout_strategy
 
+Get or set a strategy to a handle.
+
   # creates a L<PerlIO::via::Timeout::Strategy::Select strategy> with 0.5
   # read_timeout and set it to $fh
   timeout_strategy($fh, 'Select', read_timeout => 0.5);
@@ -140,6 +142,10 @@ some time.
 
   # used as a getter, returns the current strategy
   my $strategy = timeout_strategy($fh);
+  $strategy->disable_timeout;
+
+See L<PerlIO::via::Timeout::Strategy> for more details on the common strategies
+methods.
 
 =head1 AVAILABLE STRATEGIES
 
@@ -154,6 +160,8 @@ some time.
 =head1 SEE ALSO
 
 =over
+
+=item L<PerlIO::via::Timeout::Strategy>
 
 =item L<PerlIO::via>
 

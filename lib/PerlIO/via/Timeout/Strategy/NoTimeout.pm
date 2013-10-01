@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::NoTimeout;
 {
-  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.18';
+  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.19';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that don't do any timeout
@@ -53,15 +53,24 @@ PerlIO::via::Timeout::Strategy::NoTimeout - a L<PerlIO::via::Timeout> strategy t
 
 =head1 VERSION
 
-version 0.18
+version 0.19
 
 =DESCRIPTION
 
 This class is the default strategy used by L<PerlIO::via::Timeout> if none is
-provided. This strategy does B<not> apply any timeout on the filehandle.
+provided. It inherits L<PerlIO::via::Timeout::Strategy>. This strategy does
+B<not> apply any timeout on the filehandle.
 
-This strategy is only useful for other strategies to herit from. It should not
+This strategy is only useful for other strategies to inherit from. It should B<not>
 be used directly.
+
+=head1 CONSTRUCTOR
+
+See L<PerlIO::via::Timeout::Strategy>.
+
+=head1 METHODS
+
+See L<PerlIO::via::Timeout::Strategy>.
 
 =head1 AUTHOR
 
