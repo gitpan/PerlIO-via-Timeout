@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy;
 {
-  $PerlIO::via::Timeout::Strategy::VERSION = '0.16';
+  $PerlIO::via::Timeout::Strategy::VERSION = '0.17';
 }
 
 # ABSTRACT: base class for a L<PerlIO::via::Timeout> strategies
@@ -39,6 +39,7 @@ sub read_timeout {
 sub write_timeout {
     @_ > 1 and $_[0]{write_timeout} = $_[1], $_[0]->_check_attributes;
     $_[0]{write_timeout};    
+}
 
 sub timeout_enabled {
     @_ > 1 and $_[0]{timeout_enabled} = !!$_[1];
@@ -47,7 +48,6 @@ sub timeout_enabled {
 
 sub enable_timeout { $_[0]->timeout_enabled(1) }
 sub disable_timeout { $_[0]->timeout_enabled(0) }
-}
 
 sub READ { croak "READ is not implemented by this strategy" }
 
@@ -64,7 +64,7 @@ PerlIO::via::Timeout::Strategy - base class for a L<PerlIO::via::Timeout> strate
 
 =head1 VERSION
 
-version 0.16
+version 0.17
 
 =head1 AUTHOR
 
