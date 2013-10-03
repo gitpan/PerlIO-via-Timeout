@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::Select;
 {
-  $PerlIO::via::Timeout::Strategy::Select::VERSION = '0.19';
+  $PerlIO::via::Timeout::Strategy::Select::VERSION = '0.20';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that uses C<select>
@@ -44,6 +44,10 @@ sub READ {
             $offset += $r;
         }
         elsif ($! != EINTR) {
+            # There is a bug in PerlIO::via (possibly in PerlIO ?). We would like
+            # to return -1 to signify error, but doing so doesn't work (it usually
+            # segfault), it looks like the implementation is not complete. So we
+            # return 0.
             return 0;
         }
     }
@@ -121,7 +125,7 @@ PerlIO::via::Timeout::Strategy::Select - a L<PerlIO::via::Timeout> strategy that
 
 =head1 VERSION
 
-version 0.19
+version 0.20
 
 =head1 SYNOPSIS
 

@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy;
 {
-  $PerlIO::via::Timeout::Strategy::VERSION = '0.19';
+  $PerlIO::via::Timeout::Strategy::VERSION = '0.20';
 }
 
 # ABSTRACT: base class for a L<PerlIO::via::Timeout> strategies
@@ -72,7 +72,7 @@ PerlIO::via::Timeout::Strategy - base class for a L<PerlIO::via::Timeout> strate
 
 =head1 VERSION
 
-version 0.19
+version 0.20
 
 =head1 DESCRIPTION
 

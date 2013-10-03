@@ -22,19 +22,19 @@ name: PerlIO-via-Timeout
 provides:
   PerlIO::via::Timeout:
     file: lib/PerlIO/via/Timeout.pm
-    version: 0.19
+    version: 0.20
   PerlIO::via::Timeout::Strategy:
     file: lib/PerlIO/via/Timeout/Strategy.pm
-    version: 0.19
+    version: 0.20
   PerlIO::via::Timeout::Strategy::Alarm:
     file: lib/PerlIO/via/Timeout/Strategy/Alarm.pm
-    version: 0.19
+    version: 0.20
   PerlIO::via::Timeout::Strategy::NoTimeout:
     file: lib/PerlIO/via/Timeout/Strategy/NoTimeout.pm
-    version: 0.19
+    version: 0.20
   PerlIO::via::Timeout::Strategy::Select:
     file: lib/PerlIO/via/Timeout/Strategy/Select.pm
-    version: 0.19
+    version: 0.20
 requires:
   Exporter: 5.57
   PerlIO::via: 0
@@ -42,4 +42,4 @@ requires:
   Time::Out: 0
 resources:
   repository: git://github.com/dams/perlio-via-timeout.git
-version: 0.19
+version: 0.20
