@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::NoTimeout;
 {
-  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.20';
+  $PerlIO::via::Timeout::Strategy::NoTimeout::VERSION = '0.21';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that don't do any timeout
@@ -46,10 +46,20 @@ sub READ {
 
 sub WRITE {
     my ($self, undef, $fh, $fd) = @_;
-    my $rv = syswrite($fh, $_[1]);
-    defined $rv
-      or return -1;
-    return $rv;
+    my $len = length $_[1];
+    my $offset = 0;
+    while () {
+        my $r = syswrite($fh, $_[1], $len, $offset);
+        if (defined $r) {
+            $len -= $r;
+            $offset += $r;
+            last unless $len;
+        }
+        elsif ($! != EINTR) {
+            return -1;
+        }
+    }
+    return $offset;
 }
 
 1;
@@ -63,7 +73,7 @@ PerlIO::via::Timeout::Strategy::NoTimeout - a L<PerlIO::via::Timeout> strategy t
 
 =head1 VERSION
 
-version 0.20
+version 0.21
 
 =DESCRIPTION
 

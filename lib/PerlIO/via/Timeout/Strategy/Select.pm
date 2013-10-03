@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout::Strategy::Select;
 {
-  $PerlIO::via::Timeout::Strategy::Select::VERSION = '0.20';
+  $PerlIO::via::Timeout::Strategy::Select::VERSION = '0.21';
 }
 
 # ABSTRACT: a L<PerlIO::via::Timeout> strategy that uses C<select>
@@ -125,7 +125,7 @@ PerlIO::via::Timeout::Strategy::Select - a L<PerlIO::via::Timeout> strategy that
 
 =head1 VERSION
 
-version 0.20
+version 0.21
 
 =head1 SYNOPSIS
 
