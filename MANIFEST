@@ -8,10 +8,6 @@ README
 README.pod
 dist.ini
 lib/PerlIO/via/Timeout.pm
-lib/PerlIO/via/Timeout/Strategy.pm
-lib/PerlIO/via/Timeout/Strategy/Alarm.pm
-lib/PerlIO/via/Timeout/Strategy/NoTimeout.pm
-lib/PerlIO/via/Timeout/Strategy/Select.pm
 t/00-compile.t
 t/01_socket_timeout.t
 t/release-distmeta.t

@@ -18,7 +18,7 @@ my %module_build_args = (
     "Damien \"dams\" Krotkine"
   ],
   "dist_name" => "PerlIO-via-Timeout",
-  "dist_version" => "0.21",
+  "dist_version" => "0.22",
   "license" => "perl",
   "module_name" => "PerlIO::via::Timeout",
   "recommends" => {},
