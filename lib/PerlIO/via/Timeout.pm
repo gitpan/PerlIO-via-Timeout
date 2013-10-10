@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout;
 {
-  $PerlIO::via::Timeout::VERSION = '0.22';
+  $PerlIO::via::Timeout::VERSION = '0.23';
 }
 
 # ABSTRACT: a PerlIO layer that adds read & write timeout to a handle
@@ -36,6 +36,11 @@ sub _get_fd {
     defined $fd && $fd >= 0
       or croak "failed to get file descriptor from filehandle";
     $fd;
+}
+
+sub _fh2prop {
+    # params: self, $fh
+    $fd2prop{_get_fd $_[1]}
 }
 
 sub PUSHED {
@@ -195,7 +200,7 @@ PerlIO::via::Timeout - a PerlIO layer that adds read & write timeout to a handle
 
 =head1 VERSION
 
-version 0.22
+version 0.23
 
 =head1 SYNOPSIS
 
@@ -215,7 +220,7 @@ version 0.22
 =head1 DESCRIPTION
 
 This package implements a PerlIO layer, that adds read / write timeout. This
-can be useful to avoid blocking while accessing a handle (file, socker, ...),
+can be useful to avoid blocking while accessing a handle (file, socket, ...),
 and fail after some time.
 
 =head1 FUNCTIONS

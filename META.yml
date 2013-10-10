@@ -22,7 +22,7 @@ name: PerlIO-via-Timeout
 provides:
   PerlIO::via::Timeout:
     file: lib/PerlIO/via/Timeout.pm
-    version: 0.22
+    version: 0.23
 requires:
   Exporter: 5.57
   PerlIO::via: 0
@@ -31,4 +31,4 @@ requires:
 resources:
   bugtracker: https://github.com/dams/perlio-via-timeout/issues
   repository: git://github.com/dams/perlio-via-timeout.git
-version: 0.22
+version: 0.23
