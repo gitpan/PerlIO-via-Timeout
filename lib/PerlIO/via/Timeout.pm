@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout;
 {
-  $PerlIO::via::Timeout::VERSION = '0.23';
+  $PerlIO::via::Timeout::VERSION = '0.24';
 }
 
 # ABSTRACT: a PerlIO layer that adds read & write timeout to a handle
@@ -19,8 +19,6 @@ use warnings;
 use Carp;
 use Errno qw(EBADF EINTR ETIMEDOUT);
 use Scalar::Util qw(reftype blessed weaken);
-
-use PerlIO::via::Timeout::Strategy::NoTimeout;
 
 use Exporter 'import'; # gives you Exporter's import() method directly
 our @EXPORT_OK = qw(read_timeout write_timeout enable_timeout disable_timeout timeout_enabled);
@@ -190,8 +188,8 @@ sub timeout_enabled {
 
 1;
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -200,7 +198,7 @@ PerlIO::via::Timeout - a PerlIO layer that adds read & write timeout to a handle
 
 =head1 VERSION
 
-version 0.23
+version 0.24
 
 =head1 SYNOPSIS
 
@@ -298,4 +296,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

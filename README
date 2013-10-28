@@ -1,7 +1,7 @@
 
 
 This archive contains the distribution PerlIO-via-Timeout,
-version 0.23:
+version 0.24:
 
   a PerlIO layer that adds read & write timeout to a handle
 
