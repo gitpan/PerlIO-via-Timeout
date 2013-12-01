@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout;
 {
-  $PerlIO::via::Timeout::VERSION = '0.24';
+  $PerlIO::via::Timeout::VERSION = '0.25';
 }
 
 # ABSTRACT: a PerlIO layer that adds read & write timeout to a handle
@@ -21,7 +21,9 @@ use Errno qw(EBADF EINTR ETIMEDOUT);
 use Scalar::Util qw(reftype blessed weaken);
 
 use Exporter 'import'; # gives you Exporter's import() method directly
+
 our @EXPORT_OK = qw(read_timeout write_timeout enable_timeout disable_timeout timeout_enabled);
+
 our %EXPORT_TAGS = (all => [@EXPORT_OK]);
 
 
@@ -198,7 +200,7 @@ PerlIO::via::Timeout - a PerlIO layer that adds read & write timeout to a handle
 
 =head1 VERSION
 
-version 0.24
+version 0.25
 
 =head1 SYNOPSIS
 
@@ -220,6 +222,14 @@ version 0.24
 This package implements a PerlIO layer, that adds read / write timeout. This
 can be useful to avoid blocking while accessing a handle (file, socket, ...),
 and fail after some time.
+
+The timeout is implemented by using C<<select>> on the handle before
+reading/writing.
+
+B<WARNING> the handle won't timeout if you use C<sysread> or C<syswrite> on it,
+because these functions works at a lower level. Hower if you're trying to
+implement a timeout for a socket, see L<IO::Socket::Timeout> that implements
+exactly that.
 
 =head1 FUNCTIONS
 
