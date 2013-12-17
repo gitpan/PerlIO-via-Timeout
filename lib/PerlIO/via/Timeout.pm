@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout;
 {
-  $PerlIO::via::Timeout::VERSION = '0.25';
+  $PerlIO::via::Timeout::VERSION = '0.26';
 }
 
 # ABSTRACT: a PerlIO layer that adds read & write timeout to a handle
@@ -27,20 +27,19 @@ our @EXPORT_OK = qw(read_timeout write_timeout enable_timeout disable_timeout ti
 our %EXPORT_TAGS = (all => [@EXPORT_OK]);
 
 
-my %fd2prop;
-
 sub _get_fd {
     # params: FH
-    $_[0] or return;
-    my $fd = fileno($_[0]);
+    my $fd = fileno $_[0];
     defined $fd && $fd >= 0
-      or croak "failed to get file descriptor from filehandle";
+      or croak "failed to get file descriptor for filehandle";
     $fd;
 }
 
+my %fd2prop;
+
 sub _fh2prop {
     # params: self, $fh
-    $fd2prop{_get_fd $_[1]}
+    $fd2prop{_get_fd $_[1]};
 }
 
 sub PUSHED {
@@ -51,7 +50,7 @@ sub PUSHED {
 
 sub POPPED {
     # params: SELF [, FH ]
-    delete $fd2prop{_get_fd $_[1] or return};
+    delete $fd2prop{_get_fd($_[1] or return)};
 }
 
 sub CLOSE {
@@ -74,9 +73,9 @@ sub READ {
     my $read_timeout = $fd2prop{$fd}->{read_timeout};
 
     my $offset = 0;
-    while () {
+    while ($len) {
         if ( $timeout_enabled && $read_timeout && $len && ! _can_read_write($fh, $fd, $read_timeout, 0)) {
-            $! = ETIMEDOUT unless $!;
+            $! ||= ETIMEDOUT;
             return 0;
         }
         my $r = sysread($fh, $_[1], $len, $offset);
@@ -107,9 +106,9 @@ sub WRITE {
 
     my $len = length $_[1];
     my $offset = 0;
-    while () {
+    while ($len) {
         if ( $len && $timeout_enabled && $write_timeout && ! _can_read_write($fh, $fd, $write_timeout, 1)) {
-            $! = ETIMEDOUT unless $!;
+            $! ||= ETIMEDOUT;
             return -1;
         }
         my $r = syswrite($fh, $_[1], $len, $offset);
@@ -200,7 +199,7 @@ PerlIO::via::Timeout - a PerlIO layer that adds read & write timeout to a handle
 
 =head1 VERSION
 
-version 0.25
+version 0.26
 
 =head1 SYNOPSIS
 
