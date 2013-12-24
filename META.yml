@@ -6,12 +6,11 @@ build_requires:
   File::Spec: 0
   IO::Handle: 0
   IPC::Open3: 0
-  Module::Build: 0.3601
   Test::More: 0
   Test::TCP: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
-  Module::Build: 0.3601
+  Module::Build::Tiny: 0.030
 dynamic_config: 0
 generated_by: 'Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.132830'
 license: perl
@@ -22,7 +21,7 @@ name: PerlIO-via-Timeout
 provides:
   PerlIO::via::Timeout:
     file: lib/PerlIO/via/Timeout.pm
-    version: 0.27
+    version: 0.28
 requires:
   Exporter: 5.57
   PerlIO::via: 0
@@ -30,4 +29,4 @@ requires:
   Time::Out: 0
 resources:
   repository: git://github.com/dams/perlio-via-timeout.git
-version: 0.27
+version: 0.28

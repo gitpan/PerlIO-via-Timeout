@@ -8,7 +8,7 @@
 #
 package PerlIO::via::Timeout;
 {
-  $PerlIO::via::Timeout::VERSION = '0.27';
+  $PerlIO::via::Timeout::VERSION = '0.28';
 }
 
 # ABSTRACT: a PerlIO layer that adds read & write timeout to a handle
@@ -29,9 +29,10 @@ our %EXPORT_TAGS = (all => [@EXPORT_OK]);
 
 sub _get_fd {
     # params: FH
+    $_[0] or return;
     my $fd = fileno $_[0];
     defined $fd && $fd >= 0
-      or croak "failed to get file descriptor for filehandle";
+      or return;
     $fd;
 }
 
@@ -39,7 +40,10 @@ my %fd2prop;
 
 sub _fh2prop {
     # params: self, $fh
-    $fd2prop{_get_fd $_[1]};
+    my $prop = $fd2prop{ my $fd = _get_fd $_[1]
+                         or croak 'failed to get file descriptor for filehandle' };
+    wantarray and return ($prop, $fd);
+    return $prop;
 }
 
 sub PUSHED {
@@ -50,13 +54,13 @@ sub PUSHED {
 
 sub POPPED {
     # params: SELF [, FH ]
-    delete $fd2prop{_get_fd($_[1] or return)};
+    delete $fd2prop{_get_fd($_[1]) or return};
 }
 
 sub CLOSE {
     # params: SELF, FH
-    delete $fd2prop{_get_fd $_[1]};
-    close $_[1];
+    delete $fd2prop{_get_fd($_[1]) or return -1};
+    close $_[1] or -1;
 }
 
 sub READ {
@@ -67,10 +71,10 @@ sub READ {
     # to return -1 to signify error, but doing so doesn't work (it usually
     # segfault), it looks like the implementation is not complete. So we
     # return 0.
-    my $fd = _get_fd $fh;
+    my ($prop, $fd) = __PACKAGE__->_fh2prop($fh);
 
-    my $timeout_enabled = $fd2prop{$fd}->{timeout_enabled};
-    my $read_timeout = $fd2prop{$fd}->{read_timeout};
+    my $timeout_enabled = $prop->{timeout_enabled};
+    my $read_timeout    = $prop->{read_timeout};
 
     my $offset = 0;
     while ($len) {
@@ -99,10 +103,10 @@ sub WRITE {
     # params: SELF, BUF, FH
     my ($self, undef, $fh) = @_;
 
-    my $fd = _get_fd $fh;
+    my ($prop, $fd) = __PACKAGE__->_fh2prop($fh);
 
-    my $timeout_enabled = $fd2prop{$fd}->{timeout_enabled};
-    my $write_timeout = $fd2prop{$fd}->{write_timeout};
+    my $timeout_enabled = $prop->{timeout_enabled};
+    my $write_timeout   = $prop->{write_timeout};
 
     my $len = length $_[1];
     my $offset = 0;
@@ -156,14 +160,14 @@ sub _can_read_write {
 
 
 sub read_timeout {
-    my $prop = $fd2prop{_get_fd $_[0]};
+    my $prop = __PACKAGE__->_fh2prop($_[0]);
     @_ > 1 and $prop->{read_timeout} = $_[1], _check_attributes($prop);
     $prop->{read_timeout};
 }
 
 
 sub write_timeout {
-    my $prop = $fd2prop{_get_fd $_[0]};
+    my $prop = __PACKAGE__->_fh2prop($_[0]);
     @_ > 1 and $prop->{write_timeout} = $_[1], _check_attributes($prop);
     $prop->{write_timeout};
 }
@@ -182,7 +186,7 @@ sub disable_timeout { timeout_enabled($_[0], 0) }
 
 
 sub timeout_enabled {
-    my $prop = $fd2prop{_get_fd $_[0]};
+    my $prop = __PACKAGE__->_fh2prop($_[0]);
     @_ > 1 and $prop->{timeout_enabled} = !!$_[1];
     $prop->{timeout_enabled};
 }
@@ -199,7 +203,7 @@ PerlIO::via::Timeout - a PerlIO layer that adds read & write timeout to a handle
 
 =head1 VERSION
 
-version 0.27
+version 0.28
 
 =head1 SYNOPSIS
 
